@@ -1,21 +1,39 @@
-import React,{useContext, useState} from "react"
+import React, { useState } from "react"
 
-const UserContext=React.createContext({
-    userName:"test",
-    userId:"1",
-    handleLogin:()=>{
-   },
-    isLogdin:false
-})
+
+type UserContextType = {
+  userName: string
+  userId: string
+  isLoggedIn: boolean
+  handleLogin?: () => void
+}
+
+
+const inititalUserData = {
+  userName: "test",
+  userId: "1",
+  isLoggedIn: false
+}
+
+
+const UserContext = React.createContext<UserContextType>(inititalUserData)
 export default UserContext
-  export const Provider=()=>{
-    const [login,setLogin]=useState(false)
-   const handelLogin=()=>{
-    setLogin(!login)
-    }
-    // return(
-    //   // <UserContext.Provider value={{...login,setLogin}}></UserContext.Provider>
-    // )
+
+
+
+export const UserProvider = (props: {children: JSX.Element}) => {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  
+  const handleLogin = () => {
+    setIsLoggedIn(!isLoggedIn)
   }
+  
+  return (
+    <UserContext.Provider value={{ ...inititalUserData, isLoggedIn, handleLogin }}>
+      {props.children}
+    </UserContext.Provider>
+  )
+}
 
 
