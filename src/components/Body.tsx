@@ -24,7 +24,7 @@ const Body = () => {
             <div className='gridContainer'>
 
                 {userData.map((user) => (
-                    <Link to={`/${user.id}`}><Card key={user.id} {...user} /></Link>
+                    <Link to={`/${user.id}`}key={user.id}><Card  {...user} /></Link>
                 ))}
             </div>
         </>
